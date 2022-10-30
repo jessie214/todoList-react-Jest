@@ -12,16 +12,32 @@ it('The initialization list should be empty', () => {
 it('TodoLIst should pass a method to add undoList content to Header', () => {
   const wrapper = shallow(<TodoList />);
   let HeaderComponent = wrapper.find(Header);
-  expect(HeaderComponent.props.addUndoItem).toBe(wrapper.instance.addUndoItem);
+  expect(HeaderComponent.prop('addUndoItem')).toBeTruthy();
 });
 
-it('When the Header presses enter, the undoList list should add new content', () => {
+it('When addUndoItem is executed, the undoList list should add new content', () => {
   const wrapper = shallow(<TodoList />);
-  let HeaderComponent = wrapper.find(Header);
-  const addFunc = HeaderComponent.prop('addUndoItem');
-  console.log(HeaderComponent.props)
-  addFunc('learn react');
+  wrapper.instance().addUndoItem('learn react');
   expect(wrapper.state('undoList').length).toBe(1);
   expect(wrapper.state('undoList')[0]).toBe('learn react');
+  wrapper.instance().addUndoItem('learn react');
+  expect(wrapper.state('undoList').length).toBe(2);
 });
+
+it('The list data and deleteItem method should be passed to the undoList', () => {
+  const wrapper = shallow(<TodoList />);
+  const UndoList = wrapper.find('UndoList');
+  expect(UndoList.prop('list')).toBeTruthy();
+  expect(UndoList.prop('deleteItem')).toBeTruthy();
+});
+
+it('When the deleteItem method executes, the undoList should delete the content', () => {
+  const wrapper = shallow(<TodoList />);
+  wrapper.setState({
+    undoList: ['learn react', 'learn jest', 'learn unit test']
+  });
+  wrapper.instance().deleteItem(1);
+  expect(wrapper.state('undoList')).toEqual(['learn react', 'learn unit test'])
+});
+
 
