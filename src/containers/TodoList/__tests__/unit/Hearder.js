@@ -1,26 +1,31 @@
 import React from 'react';
-import Enzyme,{shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {shallow} from 'enzyme';
+// import Adapter from 'enzyme-adapter-react-16';
 import Header from '../../components/Header';
+import { findTestWrapper } from '../../../../utils/testUtils';
 
-Enzyme.configure({ adapter: new Adapter() });
+// Enzyme.configure({ adapter: new Adapter() });
+
+it('The header rendering style is normal', () => {
+  const wrapper = shallow(<Header />); 
+  expect(wrapper).toMatchSnapshot();
+});
 
 it('Header have a input', () => {
   const wrapper = shallow(<Header />);
-  const inputElem = wrapper.find("[data-test='input']")
+  const inputElem = findTestWrapper(wrapper, 'input');
   expect(inputElem.length).toBe(1);
 });
 
 it('The initialization input should be empty', () => {
   const wrapper = shallow(<Header />);
-  const inputElem = wrapper.find("[data-test='input']");
+  const inputElem = findTestWrapper(wrapper, 'input');
   expect(inputElem.prop('value')).toEqual('');
 });
 
 it('The input changes as the user enters content', () => {
   const wrapper = shallow(<Header />);
-  const inputElem = wrapper.find("[data-test='input']");
-  const userInput = 'I change the content';  
+  const inputElem = findTestWrapper(wrapper, 'input');
   inputElem.simulate('change', { target: { name: 'email', value: 50 } });
   wrapper.update();
   expect(
@@ -34,7 +39,7 @@ it('If there is no input content when you press Enter, there is no action', () =
   const fn = jest.fn();
   const wrapper = shallow(<Header addUndoItem={fn} />);
   wrapper.setState({value:''})
-  wrapper.find("[data-test='input']").simulate('keyUp', {
+  findTestWrapper(wrapper, 'input').simulate('keyUp', {
     keyCode: 13
   });
   expect(fn).not.toHaveBeenCalled();
@@ -45,7 +50,7 @@ it('called when there is content after press Enter', () => {
   const wrapper = shallow(<Header addUndoItem={fn} />);
   const userInput ='learn react'
   wrapper.setState({value:userInput})
-  wrapper.find("[data-test='input']").simulate('keyUp', {
+  findTestWrapper(wrapper, 'input').simulate('keyUp', {
     keyCode: 13
   });
   expect(fn).toHaveBeenCalled();
@@ -56,12 +61,12 @@ it('called when there is content after press Enter', () => {
 it('the content of input should be cleared after press Enter', () => {
   const fn = jest.fn();
   const wrapper = shallow(<Header addUndoItem={fn} />);
-  const inputElem = wrapper.find("[data-test='input']");
+  const inputElem = findTestWrapper(wrapper, 'input');
   const userInput ='learn react'
   wrapper.setState({value:userInput})
   wrapper.find("[data-test='input']").simulate('keyUp', {
     keyCode: 13
   });
-  const newInputelem = wrapper.find("[data-test='input']");
+  const newInputelem = findTestWrapper(wrapper, 'input');
   expect(newInputelem.prop('value')).toBe('')
 });

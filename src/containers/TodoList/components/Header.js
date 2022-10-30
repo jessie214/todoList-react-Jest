@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../style.css';
 
 class Header extends Component {
   constructor(props) {
@@ -23,13 +24,17 @@ class Header extends Component {
 
   render() {
     return (
-      <div>
-        <input data-test="input"
-          className='searchInput'
-          value={this.state.value}
-          onChange={this.handleInputChange}
-          onKeyUp={this.handleInputKeyUp}
-        />          
+      <div className='header'>
+        <div className='hader-content'>
+        TodoList
+          <input data-test="input"
+            placeholder='addtodo'
+            className='header-input'
+            value={this.state.value}
+            onChange={this.handleInputChange}
+            onKeyUp={this.handleInputKeyUp}
+        /> 
+      </div>               
     </div>
     )
   }

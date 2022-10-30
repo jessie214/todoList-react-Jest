@@ -10,7 +10,10 @@ module.exports = {
     "^.+\\.(js|jsx)$": "babel-jest"
   },
   "setupFiles": ['./jest.setup.js'],
-  "setupFilesAfterEnv": ['./node_modules/jest-enzyme/lib/index.js'],
+
+  "setupFilesAfterEnv": ['./node_modules/jest-enzyme/lib/index.js',
+    '<rootDir>/jest.setup.js'
+  ],
   "testEnvironment": "jsdom",
   "snapshotSerializers": ['enzyme-to-json/serializer'],
   
@@ -31,7 +34,8 @@ module.exports = {
   "modulePaths": [],
   "moduleNameMapper": {
     "^react-native$": "react-native-web",
-    "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+    "\\.(css|less)$": "identity-obj-proxy"
   },
   "moduleFileExtensions": [
     "web.js",
