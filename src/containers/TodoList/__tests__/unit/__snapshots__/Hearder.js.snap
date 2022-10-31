@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Header component style is normal 1`] = `
+<div
+  className="header"
+>
+  <div
+    className="hader-content"
+  >
+    TodoList
+    <input
+      className="header-input"
+      data-test="input"
+      onChange={[Function]}
+      onKeyUp={[Function]}
+      placeholder="addtodo"
+      value=""
+    />
+  </div>
+</div>
+`;
+
 exports[`The header rendering style is normal 1`] = `
 <div
   className="header"
