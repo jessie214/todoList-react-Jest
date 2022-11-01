@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UodoList component UndoList render is normal 1`] = `
+<div
+  className="Undo-List"
+>
+  <div
+    className="undo-list-title"
+  >
+    List in progress
+    <div
+      className="undo-list-count"
+      data-test="count"
+    >
+      0
+    </div>
+  </div>
+  <ul
+    className="undo-list-content"
+  />
+</div>
+`;

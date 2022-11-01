@@ -12,7 +12,7 @@ class UndoList extends Component {
 
 
   render() {
-    const { list,deleteItem } = this.props;
+    const { list,deleteItem,changeStatus,handleBlur,valueChange } = this.props;
     return (
       <div className='Undo-List'>
         <div className='undo-list-title'>
@@ -23,9 +23,28 @@ class UndoList extends Component {
           {
             list.map((item, index) => {
               return (
-                <li data-test="list-item" key={`${item}-${index}`} className='undo-list-item'>
-                  {item}
-                  <div className="undo-list-delete" data-test="delete-item" onClick={()=>deleteItem(index)}>-</div>
+                <li
+                  data-test="list-item"
+                  key={index}
+                  className='undo-list-item'
+                  onClick={()=>changeStatus(index)}
+                >
+                  {item.status === 'div' ? item.value : (
+                    <input
+                      className='undo-list-input'
+                      data-test='input'
+                      value={item.value}
+                      onBlur={() => handleBlur(index)}
+                      onChange={(e)=>valueChange(index,e.target.value)}
+                    />
+                  )}
+                  <div
+                    className="undo-list-delete"
+                    data-test="delete-item" 
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      deleteItem(index)
+                    }}>-</div>
                 </li>
               )
             })

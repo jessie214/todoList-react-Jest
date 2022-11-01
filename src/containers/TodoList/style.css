@@ -75,3 +75,13 @@ body{
   line-height: 15px;
   cursor: pointer;
 }
+
+.undo-list-input{
+  position: relative;
+  outline: none;
+  top:-1px;
+  width:300px;
+  line-height:22px;
+  font-size:14px;
+  text-indent:10px;
+}
